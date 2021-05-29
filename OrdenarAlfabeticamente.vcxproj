@@ -139,7 +139,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Arbol_n_ary.cpp" />
+    <ClCompile Include="Cola.cpp" />
+    <ClCompile Include="Lista.cpp" />
     <ClCompile Include="OrdenarAlfabeticamente.cpp" />
+    <ClCompile Include="Pila.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="archivoLeer.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Arbol_n_ary.h" />
+    <ClInclude Include="Cola.h" />
+    <ClInclude Include="Lista.h" />
+    <ClInclude Include="Pila.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
