@@ -143,6 +143,7 @@
     <ClCompile Include="Cola.cpp" />
     <ClCompile Include="Lista.cpp" />
     <ClCompile Include="OrdenarAlfabeticamente.cpp" />
+    <ClCompile Include="Palabra.cpp" />
     <ClCompile Include="Pila.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -152,6 +153,7 @@
     <ClInclude Include="Arbol_n_ary.h" />
     <ClInclude Include="Cola.h" />
     <ClInclude Include="Lista.h" />
+    <ClInclude Include="Palabra.h" />
     <ClInclude Include="Pila.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
