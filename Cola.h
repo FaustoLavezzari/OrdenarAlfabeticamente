@@ -13,4 +13,3 @@ public:
     T ultimo(void) { return this->cabeza(); };
     string imprimir(string s) { return this->toPrint(s); };
 };
-

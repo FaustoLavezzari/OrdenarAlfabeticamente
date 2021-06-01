@@ -23,7 +23,7 @@ int main()
         Palabra siguiente;
         siguiente.texto = palabras->tope();
         siguiente.contador = 0;
-        arbol.addPalabra(siguiente);
+        arbol.add(siguiente);
         palabras->desencolar();
     }
 
@@ -34,13 +34,8 @@ int main()
         cout << siguiente.texto << endl;
         arbol_final.desencolar();
     }
-
-
     return 0;
 }
-
-
-
 
 void leer_archivo(Cola<string> &palabras){
 

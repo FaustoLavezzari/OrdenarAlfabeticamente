@@ -7,43 +7,61 @@ Arbol:: Arbol(int n) {
     raiz_principal = NULL;
 }
 
-void Arbol::addPalabra(Palabra palabra) {
-    Cola<NodoArbol*> proximas_raices;
-    proximas_raices = arbol_izq;
-    NodoArbol* raiz = proximas_raices.tope();
-    proximas_raices.desencolar();
-    add(palabra, raiz, proximas_raices);
-}
-
-void Arbol:: add(Palabra palabra, NodoArbol* padre, Cola<NodoArbol*> proximas_raices) {
-    NodoArbol* nuevo = new NodoArbol(palabra, padre);
-    if (padre == NULL) {
+void Arbol::add(Palabra palabra) {
+    NodoArbol* nuevo = new NodoArbol(palabra, raiz_principal);
+    arbol_izq.encolar(nuevo);
+    final.encolar(nuevo);
+    if (raiz_principal == NULL) {
         raiz_principal = nuevo;
-        arbol_izq.add(nuevo);
-    }
-    else if (padre->getHijos().size() < hijos_maximos) {
-      if (palabra.texto > padre->getPalabra().texto) {
-            swap(nuevo, padre);
-      }
-        padre->addHijo(nuevo);
-        arbol_izq.add(nuevo);
     }
     else {
-        if (palabra.texto > padre->getPalabra().texto) {
-            swap(nuevo, padre);
+        if (arbol_izq.tope()->getHijos().size() >= hijos_maximos) {
+            arbol_izq.desencolar();                
+            raiz_principal = arbol_izq.tope();
+            nuevo->setPadre(raiz_principal);
+            cout << "cambio de padre, ahora es: "<<raiz_principal->getPalabra().texto << endl;
         }
-        NodoArbol* raiz = proximas_raices.tope();
-        proximas_raices.desencolar();
-        add(palabra, raiz, proximas_raices);
+        raiz_principal->addHijo(nuevo);
+        cout << "agregue el: " << nuevo->getPalabra().texto << endl;
+        swap(nuevo);
     }
 }
 
-void Arbol::swap(NodoArbol*& p1, NodoArbol*& p2){
-    Palabra auxiliar = p1->getPalabra();
-    p1->setPalabra(p2->getPalabra());
-    p2->setPalabra(auxiliar);
+void Arbol::swap(NodoArbol *&p1){
+    if((p1->getPadre() != NULL) && (p1->getPadre()->getPalabra().texto < p1->getPalabra().texto)){
+        cout << "Estoy swapeando al hijo " << p1->getPalabra().texto <<" Por el padre "<<p1->getPadre()->getPalabra().texto<< endl;
+        Palabra auxiliar = p1->getPadre()->getPalabra();
+        p1->getPadre()->setPalabra(p1->getPalabra());
+        p1->setPalabra(auxiliar);
+        
+        NodoArbol* aux2 = p1->getPadre();
+        swap(aux2);
+    }
 }
 
 Cola<NodoArbol*> Arbol::getArbol(){
-    return arbol_izq;
+    return final;
+}
+
+NodoArbol* Arbol::buscarMayor(Cola<NodoArbol*> hijos) {
+    string mayor = " ";
+    NodoArbol* mayor_nodo= NULL;
+    for (int i = 0; i <=hijos.size(); i++) {
+        if(hijos.tope()->getPalabra().texto > mayor){
+            mayor = hijos.tope()->getPalabra().texto;
+            mayor_nodo = hijos.tope();
+        }
+    hijos.desencolar();
+    }
+    return mayor_nodo;
+}
+
+void Arbol:: prueba() {
+    for (int i = 0; i < final.size(); i++) {
+        for (int i = 0; i < final.tope()->getHijos().size(); i++) {
+        }
+        NodoArbol* mayor = buscarMayor(final.tope()->getHijos());
+        cout << "el hijo mayor de " << final.tope()->getPalabra().texto << " es: " << mayor->getPalabra().texto<< endl;
+        final.desencolar();
+    }
 }
