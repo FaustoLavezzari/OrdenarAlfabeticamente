@@ -19,14 +19,12 @@ int main()
     leer_archivo(*palabras);
     
     while (!palabras->empty()) {
-        Palabra siguiente;
-        siguiente.texto = palabras->front();
-        siguiente.contador = 0;
-        arbol.add(siguiente);
+        arbol.add(palabras->front());
         palabras->pop();
     }
 
     arbol.ordenar();
+
     escribir_archivo(arbol);                                  //escribo el texto final ordenado en un archivo de texto llamado archivoEscribir.txt
     return 0;
 }
@@ -67,8 +65,8 @@ void escribir_archivo(Arbol arbol) {
 
     while (!cola.empty())
     {
-        Palabra siguiente = cola.front()->getPalabra();
-        archivo << siguiente.texto << endl;
+        string siguiente = cola.front()->getPalabra();
+        archivo << siguiente << endl;
         cola.pop();
     }
     archivo <<"Se realizaron: "<< arbol.getComparaciones() << " comparaciones"<< endl;

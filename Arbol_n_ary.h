@@ -11,12 +11,12 @@ using namespace std;
 
 class NodoArbol {
 private:
-    Palabra palabra;
+    string palabra;
     NodoArbol* padre;
     queue<NodoArbol*> hijos;
     bool fijo;
 public:
-    NodoArbol(Palabra palabra_agregar, NodoArbol *padre_agregar) {
+    NodoArbol(string palabra_agregar, NodoArbol *padre_agregar) {
         palabra = palabra_agregar;
         padre = padre_agregar;
         fijo = 0;
@@ -27,10 +27,10 @@ public:
     NodoArbol* getPadre() {
         return padre;
     }
-    Palabra getPalabra() {
+    string getPalabra() {
         return palabra;
     }
-    void setPalabra(Palabra palabra_modificar) {
+    void setPalabra(string palabra_modificar) {
         palabra = palabra_modificar;
     }
     queue<NodoArbol*> getHijos() {
@@ -52,18 +52,18 @@ private:
     int hijos_maximos;
     long int comparaciones;
     long int swaps;
-    stack<NodoArbol*> pila;
-    queue<NodoArbol*> arbol_izq;
+    stack<NodoArbol*> pila_ordenamiento;
+    queue<NodoArbol*> cola_armado;
     queue<NodoArbol*> final;
     NodoArbol* padre;
     void swap(NodoArbol *p1);
     void swapSimple(NodoArbol *p1, NodoArbol *p2);
-    void reOrdenar(NodoArbol* raiz_principal, Palabra aux);
+    void reOrdenar(NodoArbol* raiz_principal, string aux);
     NodoArbol* obtenerRaizPrincipal(NodoArbol* ultimo_hijo);
     NodoArbol* buscarMayor(NodoArbol* padre);
 public:
     Arbol(int n);
-    void add(Palabra palabra);
+    void add(string palabra);
     void ordenar();
     long int getComparaciones() { return comparaciones; }
     long int getSwaps() { return swaps; }

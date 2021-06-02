@@ -141,7 +141,6 @@
   <ItemGroup>
     <ClCompile Include="Arbol_n_ary.cpp" />
     <ClCompile Include="OrdenarAlfabeticamente.cpp" />
-    <ClCompile Include="Palabra.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="archivoEscribir.txt" />
@@ -149,7 +148,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Arbol_n_ary.h" />
-    <ClInclude Include="Palabra.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
