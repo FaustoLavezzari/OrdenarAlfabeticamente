@@ -51,6 +51,7 @@ class Arbol {
 private:
     int hijos_maximos;
     long int comparaciones;
+    long int swaps;
     stack<NodoArbol*> pila;
     queue<NodoArbol*> arbol_izq;
     queue<NodoArbol*> final;
@@ -65,5 +66,6 @@ public:
     void add(Palabra palabra);
     void ordenar();
     long int getComparaciones() { return comparaciones; }
-    queue<NodoArbol*> getArbol();
+    long int getSwaps() { return swaps; }
+    queue<NodoArbol*> getArbol() { return final; }
 };

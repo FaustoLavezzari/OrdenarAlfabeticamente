@@ -71,6 +71,7 @@ void escribir_archivo(Arbol arbol) {
         archivo << siguiente.texto << endl;
         cola.pop();
     }
-    archivo <<"Las comparaciones son: "<< arbol.getComparaciones() << endl;
+    archivo <<"Se realizaron: "<< arbol.getComparaciones() << " comparaciones"<< endl;
+    archivo << "Se realizaron: " << arbol.getSwaps() << " swaps" << endl;
     archivo.close();
 }

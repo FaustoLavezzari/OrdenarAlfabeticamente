@@ -1,7 +1,8 @@
 #include "Arbol_n_ary.h"
 Arbol:: Arbol(int n) {
     hijos_maximos = n;
-    int comparaciones = 0;
+    long int comparaciones = 0;
+    long int swaps = 0;
     padre = NULL;
 }
 
@@ -26,8 +27,9 @@ void Arbol::add(Palabra palabra) {
 }
 
 void Arbol::swap(NodoArbol *p1){
+    comparaciones++;
     if((p1->getPadre() != NULL) && (p1->getPadre()->getPalabra().texto < p1->getPalabra().texto)){
-        comparaciones++;
+        swaps++;
         Palabra auxiliar = p1->getPadre()->getPalabra();
         p1->getPadre()->setPalabra(p1->getPalabra());
         p1->setPalabra(auxiliar);
@@ -42,6 +44,7 @@ void Arbol::swapSimple(NodoArbol *p1, NodoArbol *p2){                           
     aux.texto = " ";
     p1->setPalabra(p2->getPalabra());
     p2->setPalabra(aux);
+    swaps++;
 }
 
 void Arbol::ordenar() {
@@ -83,10 +86,6 @@ NodoArbol* Arbol::buscarMayor(NodoArbol* padre) {
         hijos.pop();
     }
     return mayor_nodo;
-}
-
-queue<NodoArbol*> Arbol::getArbol() {
-    return final;
 }
 
 NodoArbol* Arbol::obtenerRaizPrincipal(NodoArbol* ultimo_hijo){

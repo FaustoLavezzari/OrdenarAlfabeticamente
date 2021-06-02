@@ -998,4 +998,5 @@ zxkwj
 zyapm
 zykqh
 zzvau
-Las comparaciones son: 750107
+Se realizaron: 20640 comparaciones
+Se realizaron: 6758 swaps

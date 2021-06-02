@@ -18,16 +18,7 @@
     <ClCompile Include="OrdenarAlfabeticamente.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="Cola.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="Pila.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="Arbol_n_ary.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="Lista.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="Palabra.cpp">
@@ -35,16 +26,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Cola.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Pila.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="Arbol_n_ary.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Lista.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="Palabra.h">
@@ -53,6 +35,9 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="archivoLeer.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="archivoEscribir.txt">
       <Filter>Archivos de recursos</Filter>
     </Text>
   </ItemGroup>
