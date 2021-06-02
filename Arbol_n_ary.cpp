@@ -24,7 +24,7 @@ void Arbol::add(Palabra palabra) {
     }
 }
 
-void Arbol::swap(NodoArbol *&p1){
+void Arbol::swap(NodoArbol *p1){
     if((p1->getPadre() != NULL) && (p1->getPadre()->getPalabra().texto < p1->getPalabra().texto)){
         Palabra auxiliar = p1->getPadre()->getPalabra();
         p1->getPadre()->setPalabra(p1->getPalabra());
@@ -35,7 +35,7 @@ void Arbol::swap(NodoArbol *&p1){
     }
 }
 
-void Arbol::swapSimple(NodoArbol *&p1, NodoArbol *&p2){                                // El primer valor p1 lo remplazamos por la palabra de p2, y p2 le remplazamos la palabra por " "
+void Arbol::swapSimple(NodoArbol *p1, NodoArbol *p2){                                // El primer valor p1 lo remplazamos por la palabra de p2, y p2 le remplazamos la palabra por " "
     Palabra aux;
     aux.texto = " ";
     p1->setPalabra(p2->getPalabra());
@@ -43,24 +43,21 @@ void Arbol::swapSimple(NodoArbol *&p1, NodoArbol *&p2){                         
 }
 
 void Arbol::ordenar() {
-    int contador = 0;
     while (!pila.esvacia()) {
         NodoArbol* ultimo_hijo = pila.tope();
         pila.desapilar();
         Palabra aux = ultimo_hijo->getPalabra();
         NodoArbol* raiz_principal = obtenerRaizPrincipal(ultimo_hijo);
         swapSimple(ultimo_hijo, raiz_principal);        
-            reOrdenar(raiz_principal, aux);
-        contador++;
+        reOrdenar(raiz_principal, aux);
     }   
 }
 
-void Arbol::reOrdenar(NodoArbol* raiz_principal2, Palabra aux) {
+void Arbol::reOrdenar(NodoArbol *raiz_principal2, Palabra aux) {
     int aux2 = raiz_principal2->getHijos().size();
-    if (aux2 != 0) {
-        NodoArbol* mayor = buscarMayor(raiz_principal2->getHijos());
+    NodoArbol* mayor = buscarMayor(raiz_principal2->getHijos(), raiz_principal2);
+    if (aux2 != 0 && mayor != NULL) {
         swapSimple(raiz_principal2, mayor);
-
         reOrdenar(mayor, aux);
     }
     else {
@@ -69,7 +66,7 @@ void Arbol::reOrdenar(NodoArbol* raiz_principal2, Palabra aux) {
     }
 }
 
-NodoArbol* Arbol::buscarMayor(Cola<NodoArbol*> hijos) {
+NodoArbol* Arbol::buscarMayor(Cola<NodoArbol*> hijos, NodoArbol* padre) {
     string mayor =  " ";
     NodoArbol* mayor_nodo= NULL;
     int aux = hijos.size();
@@ -78,6 +75,7 @@ NodoArbol* Arbol::buscarMayor(Cola<NodoArbol*> hijos) {
             mayor = hijos.tope()->getPalabra().texto;
             mayor_nodo = hijos.tope();
         }
+        padre->addHijo(hijos.tope());
         hijos.desencolar();
     }
     return mayor_nodo;
@@ -87,10 +85,6 @@ Cola<NodoArbol*> Arbol::getArbol() {
     return final;
 }
 
-void Arbol::prueba() {
-    Cola<NodoArbol*> final_copia = final;
-        NodoArbol* mayor = buscarMayor(final_copia.tope()->getHijos());
-}
 NodoArbol* Arbol::obtenerRaizPrincipal(NodoArbol* ultimo_hijo){
     NodoArbol* raiz_principal1;
     if(ultimo_hijo->getPadre() != NULL){

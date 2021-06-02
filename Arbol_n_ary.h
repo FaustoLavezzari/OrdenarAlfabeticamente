@@ -47,11 +47,11 @@ private:
     Cola<NodoArbol*> arbol_izq;
     Cola<NodoArbol*> final;
     NodoArbol* padre;
-    void swap(NodoArbol *&p1);
-    void swapSimple(NodoArbol*& p1, NodoArbol*& p2);
+    void swap(NodoArbol *p1);
+    void swapSimple(NodoArbol *p1, NodoArbol *p2);
     void reOrdenar(NodoArbol* raiz_principal, Palabra aux);
     NodoArbol* obtenerRaizPrincipal(NodoArbol* ultimo_hijo);
-    NodoArbol* buscarMayor(Cola<NodoArbol*> hijos);
+    NodoArbol* buscarMayor(Cola<NodoArbol*> hijos, NodoArbol* padre);
 public:
     Arbol(int n);
     void add(Palabra palabra);
