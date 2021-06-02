@@ -7,6 +7,7 @@
 
 using namespace std;
 void leer_archivo(Cola<string>&palabras);
+void escribir_archivo(Cola<NodoArbol*>);
 
 
 int main()
@@ -28,12 +29,13 @@ int main()
     //arbol.prueba();
     arbol.ordenar();
     Cola<NodoArbol*> arbol_final = arbol.getArbol();
-    while (!arbol_final.esvacia())
+    /*while (!arbol_final.esvacia())
     {
         Palabra siguiente = arbol_final.tope()->getPalabra();
         cout << siguiente.texto << endl;
         arbol_final.desencolar();
-    }
+    }*/
+    escribir_archivo(arbol_final);                                  //escribo el texto final ordenado en un archivo de texto llamado archivoEscribir.txt
     return 0;
 }
 
@@ -58,6 +60,25 @@ void leer_archivo(Cola<string> &palabras){
             palabras.encolar(tempLinea);
             }      
         }
+    }
+    archivo.close();
+}
+
+void escribir_archivo(Cola<NodoArbol*> cola) {
+    ofstream archivo;
+
+    archivo.open("archivoEscribir.txt", ios::out);      //Abriendo el archivo
+
+    if (archivo.fail()) {
+        cout << "No se pudo abrir el archivo";
+        exit(1);
+    }
+
+    while (!cola.esvacia())
+    {
+        Palabra siguiente = cola.tope()->getPalabra();
+        archivo << siguiente.texto << endl;
+        cola.desencolar();
     }
     archivo.close();
 }
