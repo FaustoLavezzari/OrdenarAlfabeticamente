@@ -1,4 +1,5 @@
 #include "Arbol_n_ary.h"
+
 Arbol:: Arbol(int n) {
     hijos_maximos = n;
     long int comparaciones = 0;

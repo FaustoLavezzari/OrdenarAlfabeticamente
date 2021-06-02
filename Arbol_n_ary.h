@@ -1,8 +1,5 @@
 #pragma once
-#include <cstdlib>
-#include <iostream>
 #include <sstream> 
-#include "Palabra.h"
 #include <stack>;
 #include <queue>;
 #include <list>;
@@ -21,33 +18,17 @@ public:
         padre = padre_agregar;
         fijo = 0;
     }
-    void addHijo(NodoArbol *palabra_agregar) {
-        hijos.emplace(palabra_agregar);
-    }
-    NodoArbol* getPadre() {
-        return padre;
-    }
-    string getPalabra() {
-        return palabra;
-    }
-    void setPalabra(string palabra_modificar) {
-        palabra = palabra_modificar;
-    }
-    queue<NodoArbol*> getHijos() {
-        return hijos;
-    }
-    void setPadre(NodoArbol* padre_nuevo) {
-        padre = padre_nuevo;
-    }
-    bool getFijo() {
-        return fijo;
-    }
-    void setFijo() {
-        fijo = 1;
-    }
+    void addHijo(NodoArbol *palabra_agregar) {hijos.emplace(palabra_agregar);}
+    NodoArbol* getPadre() { return padre;}
+    string getPalabra() {return palabra;}
+    void setPalabra(string palabra_modificar) {palabra = palabra_modificar;}
+    queue<NodoArbol*> getHijos() {return hijos;}
+    void setPadre(NodoArbol* padre_nuevo) {padre = padre_nuevo;}
+    bool getFijo() {return fijo;}
+    void setFijo() {fijo = 1; }
 };
 
-class Arbol {
+class Arbol{
 private:
     int hijos_maximos;
     long int comparaciones;

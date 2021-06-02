@@ -2,7 +2,6 @@
 #include <fstream>
 #include <sstream>
 #include "Arbol_n_ary.h"
-#include <stack>;
 
 using namespace std;
 void leer_archivo(queue<string>&palabras);
@@ -29,6 +28,9 @@ int main()
     return 0;
 }
 
+/*
+esta funcion lee el archivo de texto
+*/
 void leer_archivo(queue<string> &palabras){
 
     ifstream archivo;
