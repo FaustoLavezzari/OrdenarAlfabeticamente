@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -26,7 +25,8 @@ int main()
         arbol.add(siguiente);
         palabras->desencolar();
     }
-
+    //arbol.prueba();
+    arbol.ordenar();
     Cola<NodoArbol*> arbol_final = arbol.getArbol();
     while (!arbol_final.esvacia())
     {

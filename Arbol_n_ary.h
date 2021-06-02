@@ -4,6 +4,7 @@
 #include <sstream> 
 #include "Lista.h"
 #include "Cola.h"
+#include "Pila.h"
 #include "Palabra.h"
 using namespace std;
 
@@ -42,15 +43,19 @@ class Arbol {
 private:
     int hijos_maximos;
     int comparaciones;
+    Pila<NodoArbol*> pila;
     Cola<NodoArbol*> arbol_izq;
     Cola<NodoArbol*> final;
-    NodoArbol* raiz_principal;
+    NodoArbol* padre;
     void swap(NodoArbol *&p1);
-    bool esta(NodoArbol *aux, string palabra);
+    void swapSimple(NodoArbol*& p1, NodoArbol*& p2);
+    void reOrdenar(NodoArbol* raiz_principal, Palabra aux);
+    NodoArbol* obtenerRaizPrincipal(NodoArbol* ultimo_hijo);
     NodoArbol* buscarMayor(Cola<NodoArbol*> hijos);
 public:
     Arbol(int n);
     void add(Palabra palabra);
+    void ordenar();
     bool esta(string palabra);
     Cola<NodoArbol*> getArbol();
     void prueba();

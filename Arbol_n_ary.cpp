@@ -1,35 +1,31 @@
 #include "Arbol_n_ary.h"
-
-
 Arbol:: Arbol(int n) {
     hijos_maximos = n;
     int comparaciones = 0;
-    raiz_principal = NULL;
+    padre = NULL;
 }
 
 void Arbol::add(Palabra palabra) {
-    NodoArbol* nuevo = new NodoArbol(palabra, raiz_principal);
+    NodoArbol* nuevo = new NodoArbol(palabra, padre);
     arbol_izq.encolar(nuevo);
+    pila.apilar(nuevo);
     final.encolar(nuevo);
-    if (raiz_principal == NULL) {
-        raiz_principal = nuevo;
+    if (padre == NULL) {
+        padre = nuevo;
     }
     else {
         if (arbol_izq.tope()->getHijos().size() >= hijos_maximos) {
             arbol_izq.desencolar();                
-            raiz_principal = arbol_izq.tope();
-            nuevo->setPadre(raiz_principal);
-            cout << "cambio de padre, ahora es: "<<raiz_principal->getPalabra().texto << endl;
+            padre = arbol_izq.tope();
+            nuevo->setPadre(padre);
         }
-        raiz_principal->addHijo(nuevo);
-        cout << "agregue el: " << nuevo->getPalabra().texto << endl;
+        padre->addHijo(nuevo);
         swap(nuevo);
     }
 }
 
 void Arbol::swap(NodoArbol *&p1){
     if((p1->getPadre() != NULL) && (p1->getPadre()->getPalabra().texto < p1->getPalabra().texto)){
-        cout << "Estoy swapeando al hijo " << p1->getPalabra().texto <<" Por el padre "<<p1->getPadre()->getPalabra().texto<< endl;
         Palabra auxiliar = p1->getPadre()->getPalabra();
         p1->getPadre()->setPalabra(p1->getPalabra());
         p1->setPalabra(auxiliar);
@@ -39,29 +35,69 @@ void Arbol::swap(NodoArbol *&p1){
     }
 }
 
-Cola<NodoArbol*> Arbol::getArbol(){
-    return final;
+void Arbol::swapSimple(NodoArbol *&p1, NodoArbol *&p2){                                // El primer valor p1 lo remplazamos por la palabra de p2, y p2 le remplazamos la palabra por " "
+    Palabra aux;
+    aux.texto = " ";
+    p1->setPalabra(p2->getPalabra());
+    p2->setPalabra(aux);
+}
+
+void Arbol::ordenar() {
+    int contador = 0;
+    while (!pila.esvacia()) {
+        NodoArbol* ultimo_hijo = pila.tope();
+        pila.desapilar();
+        Palabra aux = ultimo_hijo->getPalabra();
+        NodoArbol* raiz_principal = obtenerRaizPrincipal(ultimo_hijo);
+        swapSimple(ultimo_hijo, raiz_principal);        
+            reOrdenar(raiz_principal, aux);
+        contador++;
+    }   
+}
+
+void Arbol::reOrdenar(NodoArbol* raiz_principal2, Palabra aux) {
+    int aux2 = raiz_principal2->getHijos().size();
+    if (aux2 != 0) {
+        NodoArbol* mayor = buscarMayor(raiz_principal2->getHijos());
+        swapSimple(raiz_principal2, mayor);
+
+        reOrdenar(mayor, aux);
+    }
+    else {
+        raiz_principal2->setPalabra(aux);
+        swap(raiz_principal2);
+    }
 }
 
 NodoArbol* Arbol::buscarMayor(Cola<NodoArbol*> hijos) {
-    string mayor = " ";
+    string mayor =  " ";
     NodoArbol* mayor_nodo= NULL;
-    for (int i = 0; i <=hijos.size(); i++) {
-        if(hijos.tope()->getPalabra().texto > mayor){
+    int aux = hijos.size();
+    for (int i = 0; i < aux && aux != 0; i++) {
+        if(hijos.tope()->getPalabra().texto >= mayor && pila.esta(hijos.tope())){
             mayor = hijos.tope()->getPalabra().texto;
             mayor_nodo = hijos.tope();
         }
-    hijos.desencolar();
+        hijos.desencolar();
     }
     return mayor_nodo;
 }
 
-void Arbol:: prueba() {
-    for (int i = 0; i < final.size(); i++) {
-        for (int i = 0; i < final.tope()->getHijos().size(); i++) {
-        }
-        NodoArbol* mayor = buscarMayor(final.tope()->getHijos());
-        cout << "el hijo mayor de " << final.tope()->getPalabra().texto << " es: " << mayor->getPalabra().texto<< endl;
-        final.desencolar();
+Cola<NodoArbol*> Arbol::getArbol() {
+    return final;
+}
+
+void Arbol::prueba() {
+    Cola<NodoArbol*> final_copia = final;
+        NodoArbol* mayor = buscarMayor(final_copia.tope()->getHijos());
+}
+NodoArbol* Arbol::obtenerRaizPrincipal(NodoArbol* ultimo_hijo){
+    NodoArbol* raiz_principal1;
+    if(ultimo_hijo->getPadre() != NULL){
+        raiz_principal1 = ultimo_hijo->getPadre();
+        obtenerRaizPrincipal(raiz_principal1);
+    }
+    else{
+        return ultimo_hijo;
     }
 }
