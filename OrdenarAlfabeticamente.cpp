@@ -1,13 +1,12 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include "Cola.h"
-#include "Lista.h"
 #include "Arbol_n_ary.h"
+#include <stack>;
 
 using namespace std;
-void leer_archivo(Cola<string>&palabras);
-void escribir_archivo(Cola<NodoArbol*>);
+void leer_archivo(queue<string>&palabras);
+void escribir_archivo(Arbol arbol);
 
 
 int main()
@@ -16,30 +15,23 @@ int main()
     cout << "ingrese el n a utilizar: ";
     cin >> n;
     Arbol arbol(n);
-    Cola<string> *palabras = new Cola<string>;
+    queue<string> *palabras = new queue<string>;
     leer_archivo(*palabras);
     
-    while (!palabras->esvacia()) {
+    while (!palabras->empty()) {
         Palabra siguiente;
-        siguiente.texto = palabras->tope();
+        siguiente.texto = palabras->front();
         siguiente.contador = 0;
         arbol.add(siguiente);
-        palabras->desencolar();
+        palabras->pop();
     }
-    //arbol.prueba();
+
     arbol.ordenar();
-    Cola<NodoArbol*> arbol_final = arbol.getArbol();
-    /*while (!arbol_final.esvacia())
-    {
-        Palabra siguiente = arbol_final.tope()->getPalabra();
-        cout << siguiente.texto << endl;
-        arbol_final.desencolar();
-    }*/
-    escribir_archivo(arbol_final);                                  //escribo el texto final ordenado en un archivo de texto llamado archivoEscribir.txt
+    escribir_archivo(arbol);                                  //escribo el texto final ordenado en un archivo de texto llamado archivoEscribir.txt
     return 0;
 }
 
-void leer_archivo(Cola<string> &palabras){
+void leer_archivo(queue<string> &palabras){
 
     ifstream archivo;
     string linea;
@@ -57,28 +49,28 @@ void leer_archivo(Cola<string> &palabras){
         string tempLinea;
         isstream >> tempLinea;
         if (!tempLinea.empty()) {                           //evitar que luego de un espacio antes del salto de linea agregue un string vacio a la cola
-            palabras.encolar(tempLinea);
+            palabras.emplace(tempLinea);
             }      
         }
     }
     archivo.close();
 }
 
-void escribir_archivo(Cola<NodoArbol*> cola) {
+void escribir_archivo(Arbol arbol) {
     ofstream archivo;
-
+    queue<NodoArbol*> cola = arbol.getArbol();
     archivo.open("archivoEscribir.txt", ios::out);      //Abriendo el archivo
-
     if (archivo.fail()) {
         cout << "No se pudo abrir el archivo";
         exit(1);
     }
 
-    while (!cola.esvacia())
+    while (!cola.empty())
     {
-        Palabra siguiente = cola.tope()->getPalabra();
+        Palabra siguiente = cola.front()->getPalabra();
         archivo << siguiente.texto << endl;
-        cola.desencolar();
+        cola.pop();
     }
+    archivo <<"Las comparaciones son: "<< arbol.getComparaciones() << endl;
     archivo.close();
 }
