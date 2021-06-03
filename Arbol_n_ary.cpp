@@ -16,7 +16,6 @@ void Arbol::add(string palabra) {
         padre = nuevo;
     }
     else {
-        comparaciones++;
         if (cola_armado.front()->getHijos().size() >= hijos_maximos) {
             cola_armado.pop();                
             padre = cola_armado.front();
@@ -34,9 +33,7 @@ void Arbol::swap(NodoArbol *p1){
         string auxiliar = p1->getPadre()->getPalabra();
         p1->getPadre()->setPalabra(p1->getPalabra());
         p1->setPalabra(auxiliar);
-        
-        NodoArbol* aux2 = p1->getPadre();
-        swap(aux2);
+        swap(p1->getPadre());
     }
 }
 
@@ -61,8 +58,8 @@ void Arbol::ordenar() {
 
 void Arbol::reOrdenar(NodoArbol *raiz, string aux) {
     int cantidad_hijos = raiz->getHijos().size();
-    NodoArbol* mayor = buscarMayor(raiz);
-    if (cantidad_hijos != 0 && mayor != NULL) {
+    NodoArbol* mayor = buscarMayor(raiz);           //determina el mayor de los hijos
+    if (mayor != NULL) {
         swapSimple(raiz, mayor);
         reOrdenar(mayor, aux);
     }
@@ -76,7 +73,7 @@ NodoArbol* Arbol::buscarMayor(NodoArbol* padre) {
     queue<NodoArbol*> hijos = padre->getHijos();
     string mayor =  " ";
     NodoArbol* mayor_nodo= NULL;
-    int cantidad_hijos = hijos.size();
+    int cantidad_hijos = hijos.size();                                            //si la cantidad de hijos es 0 retorna null
     for (int i = 0; i < cantidad_hijos && cantidad_hijos != 0; i++) {
         comparaciones++;
         if(hijos.front()->getPalabra() >= mayor && !hijos.front()->getFijo()){

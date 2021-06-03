@@ -2,24 +2,23 @@
 #include <fstream>
 #include <sstream>
 #include "Arbol_n_ary.h"
-
 using namespace std;
+
 void leer_archivo(queue<string>&palabras);
 void escribir_archivo(Arbol arbol);
-
 
 int main()
 {
     int n;
-    cout << "ingrese el n a utilizar: ";
+    cout << "Ingrese el n a utilizar: ";
     cin >> n;
     Arbol arbol(n);
-    queue<string> *palabras = new queue<string>;
-    leer_archivo(*palabras);
+    queue<string> palabras;
+    leer_archivo(palabras);
     
-    while (!palabras->empty()) {
-        arbol.add(palabras->front());
-        palabras->pop();
+    while (!palabras.empty()) {
+        arbol.add(palabras.front());
+        palabras.pop();
     }
 
     arbol.ordenar();
@@ -33,23 +32,23 @@ esta funcion lee el archivo de texto
 */
 void leer_archivo(queue<string> &palabras){
 
-    ifstream archivo;
+    ifstream archivo;                                    
     string linea;
 
     archivo.open("archivoLeer.txt", ios::in);          //para abrir el archivo que contiene las 1000 palabras o mas
     if(archivo.fail()){
-        cout << "No se pudo abrir el archivo";
+        cout << "No se pudo abrir el archivo"<<endl;
         exit(1);
     }
     
     while(getline(archivo,linea)){                         //ciclo while que lee el archivo
         istringstream isstream(linea);
 
-    while(!isstream.eof()){                                 //ciclo while para separar palabra por palabra la fila del .txt
-        string tempLinea;
-        isstream >> tempLinea;
-        if (!tempLinea.empty()) {                           //evitar que luego de un espacio antes del salto de linea agregue un string vacio a la cola
-            palabras.emplace(tempLinea);
+        while(!isstream.eof()){                           //ciclo while para separar palabra por palabra la fila del .txt
+            string tempLinea;
+            isstream >> tempLinea;
+            if (!tempLinea.empty()) {                     //evitar que luego de un espacio antes del salto de linea agregue un string vacio a la cola
+                palabras.emplace(tempLinea);
             }      
         }
     }
@@ -72,6 +71,6 @@ void escribir_archivo(Arbol arbol) {
         cola.pop();
     }
     archivo <<"Se realizaron: "<< arbol.getComparaciones() << " comparaciones"<< endl;
-    archivo << "Se realizaron: " << arbol.getSwaps() << " swaps" << endl;
+    archivo << "Se realizaron: " << arbol.getSwaps() << "swaps" << endl;
     archivo.close();
 }
