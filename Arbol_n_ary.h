@@ -2,9 +2,7 @@
 #include <sstream> 
 #include <stack>;
 #include <queue>;
-#include <list>;
 using namespace std;
-
 
 class NodoArbol {
 private:

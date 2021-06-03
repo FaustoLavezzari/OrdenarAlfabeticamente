@@ -45,6 +45,8 @@ void Arbol::swapSimple(NodoArbol *p1, NodoArbol *p2){                           
 }
 
 void Arbol::ordenar() {
+    comparaciones = 0;
+    swaps = 0;
     while (!pila_ordenamiento.empty()) {
         NodoArbol* ultimo_hijo = pila_ordenamiento.top();
         pila_ordenamiento.pop();
@@ -57,7 +59,6 @@ void Arbol::ordenar() {
 }
 
 void Arbol::reOrdenar(NodoArbol *raiz, string aux) {
-    int cantidad_hijos = raiz->getHijos().size();
     NodoArbol* mayor = buscarMayor(raiz);           //determina el mayor de los hijos
     if (mayor != NULL) {
         swapSimple(raiz, mayor);
@@ -86,10 +87,8 @@ NodoArbol* Arbol::buscarMayor(NodoArbol* padre) {
 }
 
 NodoArbol* Arbol::obtenerRaizPrincipal(NodoArbol* ultimo_hijo){
-    NodoArbol* raiz_principal;
     if(ultimo_hijo->getPadre() != NULL){
-        raiz_principal = ultimo_hijo->getPadre();
-        obtenerRaizPrincipal(raiz_principal);
+        obtenerRaizPrincipal(ultimo_hijo->getPadre());
     }
     else{
         return ultimo_hijo;
